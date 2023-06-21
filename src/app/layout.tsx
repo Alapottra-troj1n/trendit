@@ -1,13 +1,13 @@
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 export const metadata = {
   title: "Trendit",
   description:
     "Discover, Discuss, and Dive into the Latest Trends with Trendit!",
 };
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ["latin"],weight:['200', '300', '400','500','600','700', '800', '900'] });
 export default function RootLayout({
   children,
 }: {
@@ -16,11 +16,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("bg-slate-800 text-white antialiased dark", inter.className)}
+      className={cn("bg-slate-800 text-white antialiased dark", poppins.className)}
     >
       <body className="min-h-screen pt-13 antialiased">
         <Navbar />
-        <div className="max-w-7xl container mx-auto h-full pt-14">
+        <div className="max-w-7xl container mx-auto h-full pt-20">
         {children} 
         </div>
       </body>
