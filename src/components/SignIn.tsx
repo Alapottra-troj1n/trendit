@@ -7,7 +7,7 @@ export default function SignIn() {
       <div className="flex flex-col space-y-2 text-center">
         <img src="/trendit.png" className="w-8 mx-auto" alt="" />
         <h1 className="text-2xl font-semibold tracking-tight">Welcome Back</h1>
-        <p className="text-sm max-w-xs mx-auto">
+        <p className="text-sm max-w-lg mx-auto pb-5">
           When you proceed, you are actively setting up a Trendit account and
           acknowledging your agreement with the terms and conditions of this
           community.

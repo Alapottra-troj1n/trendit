@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
+import { getAuthSession } from "@/lib/auth";
+import NavLinks from "./NavLinks";
 
 
 
-export default function Navbar() {
+export default async function Navbar() {
+
+  const session = await getAuthSession();
+  
   return (
     <div className="fixed top-0 inset-x-0 h-fit bg-slate-900 border-slate-700 z-[10] py-3">
         <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
@@ -15,9 +20,9 @@ export default function Navbar() {
           </Link>
 
 
-          <Link href={'/signin'} className={buttonVariants()}>
+         {session?.user ?  <NavLinks user={session.user}/> : <Link href={'/signin'} className={buttonVariants()}>
             Sign In
-          </Link>
+          </Link>}
 
         </div>
     </div>
