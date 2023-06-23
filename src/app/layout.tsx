@@ -14,8 +14,10 @@ const poppins = Poppins({
 });
 export default function RootLayout({
   children,
+  authModal,
 }: {
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }) {
   return (
     <html
@@ -26,9 +28,12 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen pt-13 antialiased">
+        {/*@ts-expect-error server component*/}
         <Navbar />
+        {authModal}
         <div className="max-w-7xl container mx-auto h-full pt-20">
           {children}
+      
         </div>
         <Toaster />
       </body>
