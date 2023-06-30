@@ -1,4 +1,4 @@
-import SignIn from "@/components/SignIn";
+import SignUp from "@/components/SignUp";
 import Link from "next/link";
 import { AiOutlineHome } from "react-icons/ai";
 export default function page() {
@@ -12,7 +12,7 @@ export default function page() {
           <AiOutlineHome className="text-white mr-2 text-lg" />
           Back to Homepage
         </Link>
-        <SignIn />
+        <SignUp />
       </div>
     </div>
   );
