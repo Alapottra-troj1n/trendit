@@ -21,6 +21,8 @@ export default function Page() {
       return data as string;
     },
   });
+
+  
   return (
     <div className="container flex items-center h-full max-w-3xl mx-auto">
       <div className="relative bg-slate-800 w-full h-fit p-4 rounded-lg space-y-6">
