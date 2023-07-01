@@ -7,10 +7,12 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 import { toast } from "@/components/ui/use-toast";
+import { useCustomToast } from "@/hooks/use-custom-toast";
 
 export default function Page() {
   const [input, setInput] = useState("");
   const router = useRouter();
+  const {loginToast} = useCustomToast()
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -38,11 +40,7 @@ export default function Page() {
           })
         }
         if(err.response?.status === 401){
-          return toast({
-            title: 'Invalid subreddit title',
-            description: 'Name must be between 3 - 21 characters',
-            variant: 'destructive'
-          })
+          return 
         }
       }
     }
