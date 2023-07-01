@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/Input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Page() {
   const [input, setInput] = useState("");
@@ -17,12 +18,37 @@ export default function Page() {
         name: input,
       };
       const { data } = await axios.post("/api/subreddit", payload);
-
+      console.log(data)
       return data as string;
     },
+    onError: (err) => {
+      if(err instanceof AxiosError){
+        if(err.response?.status === 409){
+          return toast({
+            title: 'Subreddit already exists',
+            description: 'Please choose a different name for your community',
+            variant: 'destructive'
+          })
+        }
+        if(err.response?.status === 422){
+          return toast({
+            title: 'Invalid subreddit title',
+            description: 'Name must be between 3 - 21 characters',
+            variant: 'destructive'
+          })
+        }
+        if(err.response?.status === 401){
+          return toast({
+            title: 'Invalid subreddit title',
+            description: 'Name must be between 3 - 21 characters',
+            variant: 'destructive'
+          })
+        }
+      }
+    }
   });
 
-  
+
   return (
     <div className="container flex items-center h-full max-w-3xl mx-auto">
       <div className="relative bg-slate-800 w-full h-fit p-4 rounded-lg space-y-6">
