@@ -12,7 +12,7 @@ import { useCustomToast } from "@/hooks/use-custom-toast";
 export default function Page() {
   const [input, setInput] = useState("");
   const router = useRouter();
-  const {loginToast} = useCustomToast()
+  const { loginToast } = useCustomToast();
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -20,32 +20,31 @@ export default function Page() {
         name: input,
       };
       const { data } = await axios.post("/api/subreddit", payload);
-      console.log(data)
+      console.log(data);
       return data as string;
     },
     onError: (err) => {
-      if(err instanceof AxiosError){
-        if(err.response?.status === 409){
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 409) {
           return toast({
-            title: 'Subreddit already exists',
-            description: 'Please choose a different name for your community',
-            variant: 'destructive'
-          })
+            title: "Subreddit already exists",
+            description: "Please choose a different name for your community",
+            variant: "destructive",
+          });
         }
-        if(err.response?.status === 422){
+        if (err.response?.status === 422) {
           return toast({
-            title: 'Invalid subreddit title',
-            description: 'Name must be between 3 - 21 characters',
-            variant: 'destructive'
-          })
+            title: "Invalid subreddit title",
+            description: "Name must be between 3 - 21 characters",
+            variant: "destructive",
+          });
         }
-        if(err.response?.status === 401){
-          return 
+        if (err.response?.status === 401) {
+          return loginToast();
         }
       }
-    }
+    },
   });
-
 
   return (
     <div className="container flex items-center h-full max-w-3xl mx-auto">
