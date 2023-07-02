@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import UserAvatar from "./UserAvatar";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
-import { AiOutlineLink } from 'react-icons/ai';
-import { BsImage } from 'react-icons/bs';
+import { AiOutlineLink } from "react-icons/ai";
+import { BsImage } from "react-icons/bs";
 interface Props {
   session: Session | null;
 }
@@ -23,18 +23,26 @@ export default function MiniCreatePost({ session }: Props) {
           <UserAvatar
             user={{ name: session?.user.name, image: session?.user.image }}
           />
-          <span className="absolute bottom-0 right-0 rounded-full w-3 h-3 bg-green-500 outline outline-2 outline-white"/>
-            
+          <span className="absolute bottom-0 right-0 rounded-full w-3 h-3 bg-green-500 outline outline-2 outline-white" />
         </div>
 
-     
-            <Input readOnly placeholder="Create a Post" onClick={()=> router.push(pathname + '/submit')} />
-            <Button className="bg-transparent hover:bg-transparent" onClick={()=> router.push(pathname + '/submit')}><BsImage className="text-white text-xl"/></Button>
-            <Button className="bg-transparent hover:bg-transparent"  onClick={()=> router.push(pathname + '/submit')}><AiOutlineLink className="text-white text-xl"  /></Button>
-           
-   
-           
-   
+        <Input
+          readOnly
+          placeholder="Create a Post"
+          onClick={() => router.push(pathname + "/submit")}
+        />
+        <Button
+          className="bg-transparent hover:bg-transparent "
+          onClick={() => router.push(pathname + "/submit")}
+        >
+          <BsImage className="text-white text-xl" />
+        </Button>
+        <Button
+          className="bg-transparent hover:bg-transparent  hidden md:block"
+          onClick={() => router.push(pathname + "/submit")}
+        >
+          <AiOutlineLink className="text-white text-xl" />
+        </Button>
       </div>
     </div>
   );
