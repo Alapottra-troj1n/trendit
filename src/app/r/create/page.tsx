@@ -43,7 +43,16 @@ export default function Page() {
           return loginToast();
         }
       }
+      toast({
+        title: 'There was an error',
+        description: 'Could not create the community',
+        variant: 'destructive'
+      })
+
     },
+    onSuccess: (data) => {
+      router.push(`/r/${data}`)
+    }
   });
 
   return (
