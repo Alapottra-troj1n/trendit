@@ -2,7 +2,8 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import {  FaCrown } from 'react-icons/fa';
+import { FaCrown } from "react-icons/fa";
+import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
 interface Props {
   children: React.ReactNode;
   params: {
@@ -58,12 +59,12 @@ const Layout = async ({ children, params }: Props) => {
           <div className="flex flex-col col-span-2 space-y-6">{children}</div>
 
           {/* Info Sidebar */}
-          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last">
+          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-600 order-first md:order-last">
             <div className="px-6 py-4">
               <p className="font-semibold py-3">About r/ {subreddit.name}</p>
             </div>
 
-            <dl className="divide-y divide-slate-200 px-6 py-4 text-sm leading-6 bg-slate-500">
+            <dl className="divide-y divide-slate-200 px-6 py-4 text-sm leading-6 bg-slate-700">
               <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-slate-200">Created</dt>
                 <dt className="text-white">
@@ -76,9 +77,18 @@ const Layout = async ({ children, params }: Props) => {
                 <dt className="text-white">{memberCount}</dt>
               </div>
 
-              {subreddit.creatorId === session?.user.id ? <div className="flex justify-between gap-x-4 py-3 items-center">
-                <p className="text-slate-300">You are the community owner</p> <FaCrown className="text-yellow-500 text-xl"/>
-              </div> : null}
+              {subreddit.creatorId === session?.user.id ? (
+                <div className="flex justify-between gap-x-4 py-3 items-center">
+                  <p className="text-slate-300">You are the community owner</p>{" "}
+                  <FaCrown className="text-yellow-500 text-xl" />
+                </div>
+              ) : null}
+
+              {
+                subreddit.creatorId !== session?.user.id ? (
+                  <SubscribeLeaveToggle subredditName={subreddit.name} isSubscribed={isSubscribed} subredditId={subreddit.id} />
+                ) : null
+              }
             </dl>
           </div>
         </div>
