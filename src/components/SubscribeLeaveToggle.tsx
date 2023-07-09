@@ -49,11 +49,42 @@ export default function SubscribeLeaveToggle({ subredditId, subredditName, isSub
       })
     }
   });
+  const {mutate: unsubscribe, isLoading: isUnsubLoading} = useMutation({
+    mutationFn: async () => {
+      const payload: SubscribeToSubredditPayload = {
+        subredditId,
+      };
+      const { data } = await axios.post("/api/subreddit/unsubscribe", payload);
+      return data as string;
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+      }
+      return toast({
+        title: 'Something went wrong',
+        description: 'There was something wrong while processing the subscription',
+        variant: 'destructive'
+      })
+    },
+    onSuccess: () => {
+      startTransition(()=> {
+          router.refresh()
+      })
+
+      return toast({
+        title: 'Success',
+        description: `You have subscribed to r/${subredditName}`
+      })
+    }
+  });
 
   return (
     <div className="py-3">
       {isSubscribed ? (
-        <Button className="w-full mt-1 mb-4">Leave Community</Button>
+        <Button onClick={()=> unsubscribe()} isLoading={isUnsubLoading} className="w-full mt-1 mb-4">Leave Community</Button>
       ) : (
         <Button isLoading={isSubLoading} onClick={()=> subscribe()} className="w-full mt-1 mb-4">Join to Post</Button>
       )}
