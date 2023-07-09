@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { FaCrown } from "react-icons/fa";
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
 interface Props {
   children: React.ReactNode;
   params: {
@@ -89,6 +91,9 @@ const Layout = async ({ children, params }: Props) => {
                   <SubscribeLeaveToggle subredditName={subreddit.name} isSubscribed={isSubscribed} subredditId={subreddit.id} />
                 ) : null
               }
+              <Link className={buttonVariants({
+                className: 'w-full mb-6'
+              })} href={`r/${params.slug}/submit`}>Create Post</Link>
             </dl>
           </div>
         </div>
