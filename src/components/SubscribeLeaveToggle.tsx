@@ -76,7 +76,7 @@ export default function SubscribeLeaveToggle({ subredditId, subredditName, isSub
 
       return toast({
         title: 'Success',
-        description: `You have subscribed to r/${subredditName}`
+        description: `You have unsubscribed from r/${subredditName}`
       })
     }
   });
